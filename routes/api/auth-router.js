@@ -6,13 +6,21 @@ import { authenticate, upload } from "../../middlewares/index.js";
 const authRouter = express.Router();
 
 authRouter.post(
-  "/singup",
+  "/signup",
   validateBody(userSchemas.userSingUpAndSingInSchema),
   authController.singUp
 );
 
+authRouter.get("/verify/:verificationToken", authController.verify);
+
 authRouter.post(
-  "/singin",
+  "/users/verify",
+  validateBody(userSchemas.userEmailVerifySchema),
+  authController.resendVerifyEmail
+);
+
+authRouter.post(
+  "/signin",
   validateBody(userSchemas.userSingUpAndSingInSchema),
   authController.singIn
 );
